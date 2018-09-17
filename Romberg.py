@@ -1,10 +1,9 @@
 import math
-from math import e
 from scipy.integrate import romberg as rb
 
 def Trap(f,a,b,n):
     '''Returns the integral of a function for the range a and b estimated by means of the trapezoidal method using n steps.'''
-    h = (b - a) / float(2**n)
+    h = (b - a) / float(n)
     s = 0.5 * (f(a) + f(b))
     for i in range(1,n,1):
         s = s + f(a + i*h)
@@ -13,16 +12,15 @@ def Trap(f,a,b,n):
 
 def Richardson(f,a,b,tol):
     '''Iteratively applies Richardson extrapolation to increase the accuracy of the estimate of the integral.'''
-    i = 1
-    Rj = Trap(f,a,b,i)
+    j = 1
+    k = 1
+    Rj = Trap(f,a,b,j)
     running = True
     while running:
-        j = i
-        i += 1
-        Rk = Trap(f,a,b,i)
-        #Rj = (4 ** (j - 1) * Rk - Rj) / (4 ** (i - 1) - 1)
-        Rj = (4 **(i - j) * Rk - Rj) / (4 ** (i - j) - 1)
-        #E = abs((Rk - Rj)/((Rj / Rk)**2 - 1))
+        j = k
+        k += 1
+        Rk = Trap(f,a,b,k)
+        Rj = (4 **(k - j) * Rk - Rj) / (4 ** (k - j) - 1)
         E = abs((Rk - Rj))
         if E < tol:
             running = False
@@ -37,7 +35,7 @@ def romberg(f, a, b, tol=1.0e-6):
     return Richardson(f,a,b,tol)
 
 def f(x):
-    return math.sin(x)
+    return math.cos(x)
 
 
 print 'Romberg value is: ' + str(romberg(f,1,10,tol=1e-6))
