@@ -26,7 +26,7 @@ def Richardson(f,a,b,tol):
         if E < tol:
             running = False
         Rj = Rk
-        print 'Error is '+str(E)
+        #print 'Error is '+str(E)
     return Rk,j
 
 def romberg(f, a, b, tol):
@@ -36,18 +36,19 @@ def romberg(f, a, b, tol):
     return Richardson(f,a,b,tol)
 
 def f(x):
-    return math.cos(x)
+    return e**x
 
 start = time.clock()
-my_rom = romberg(f,1,10,e**-6)[0]
+my_rom = romberg(f,1,2,1.0e-6)[0]
 print 'My romberg integral is: ' + str(my_rom)
 print 'Took ' + str(time.clock() - start) + ' seconds'
 start = time.clock()
-scipy_rom = rb(f,1,10,tol=e**-6,rtol=e**-6)
+scipy_rom = rb(f,1,2,tol=1.0e-6)
 print 'Scipy romberg integral is: ' + str(scipy_rom)
 print 'Took ' + str(time.clock() - start) + ' seconds'
 diff = abs(my_rom - scipy_rom)
-if diff > 2*e**-6:
-    print 'The difference is ' + str(diff) +', which is outside the tolerance of ' + str(2*e**-6)
+tol = 1*10**-6
+if diff > tol:
+    print 'The difference is ' + str(diff) +', which is outside the tolerance of ' + str(tol)
 else:
-    print 'The difference is ' + str(diff) +', which is inside the tolerance of ' + str(2*e**-6)
+    print 'The difference is ' + str(diff) +', which is inside the tolerance of ' + str(tol)
