@@ -48,7 +48,4 @@ print 'Scipy romberg integral is: ' + str(scipy_rom)
 print 'Took ' + str(time.clock() - start) + ' seconds'
 diff = abs(my_rom - scipy_rom)
 tol = 1*10**-6
-if diff > tol:
-    print 'The difference is ' + str(diff) +', which is outside the tolerance of ' + str(tol)
-else:
-    print 'The difference is ' + str(diff) +', which is inside the tolerance of ' + str(tol)
+print 'The difference is ' + str(diff)
