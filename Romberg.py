@@ -4,31 +4,28 @@ from scipy.integrate import romberg as rb
 
 def Trap(f,a,b,n):
     '''Returns the integral of a function for the range a and b estimated by means of the trapezoidal method using n steps.'''
-    h = (b - a) / float(2**n)
+    h = (b - a) / float(n)
     s = 0.5 * (f(a) + f(b))
-    for i in range(1,n,1):
+    for i in range(1,n):
         s = s + f(a + i*h)
     print 'Integral of step '+str(n)+' is: '+ str(h*s)
     return h*s
 
 def Richardson(f,a,b,tol):
     '''Returns the integral of a function for the range a,b '''
-    i = 1
-    Rj = Trap(f,a,b,i)
+    n = 1
+    Rj = Trap(f,a,b,n)
     running = True
     while running:
-        j = i
-        i += 1
-        Rk = Trap(f,a,b,i)
-        #Rj = (4 ** (j - 1) * Rk - Rj) / (4 ** (i - 1) - 1)
-        Rj = (4 **(i - j) * Rk - Rj) / (4 ** (i - j) - 1)
-        #E = abs((Rk - Rj)/((Rj / Rk)**2 - 1))
-        E = abs((Rk - Rj)/ 2**(i))
+        j = n
+        n += 1
+        Rk = Trap(f,a,b,n)
+        E = abs((Rk - Rj) / ((Rk / Rj)**2 - 1))
         if E < tol:
             running = False
         Rj = Rk
         print 'Error is '+str(E)
-    return Rk,j
+    return Rk,n
 
 def romberg(f, a, b, tol=1.0e-6):
     '''I, n_panels = romberg(f, a, b, tol=1.0e-6)
