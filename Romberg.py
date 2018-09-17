@@ -12,7 +12,7 @@ def Trap(f,a,b,n):
     return h*s
 
 def Richardson(f,a,b,tol):
-    '''Iteratively applies Richardson extrapolation to increase the accuracy of the estimate of the integral.'''
+    '''Returns the integral of a function for the range a,b '''
     i = 1
     Rj = Trap(f,a,b,i)
     running = True
@@ -23,7 +23,7 @@ def Richardson(f,a,b,tol):
         #Rj = (4 ** (j - 1) * Rk - Rj) / (4 ** (i - 1) - 1)
         Rj = (4 **(i - j) * Rk - Rj) / (4 ** (i - j) - 1)
         #E = abs((Rk - Rj)/((Rj / Rk)**2 - 1))
-        E = abs((Rk - Rj))
+        E = abs((Rk - Rj)/ 2**(i))
         if E < tol:
             running = False
         Rj = Rk
