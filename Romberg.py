@@ -1,6 +1,6 @@
-import math, time, numpy
-from math import e
-from scipy.integrate import romberg as rb
+import numpy
+#from math import e
+#from scipy.integrate import romberg as rb
 
 def Trap(f,a,b,Iold,k):
     '''Returns the integral of a function for the range a and b estimated by means of the trapezoidal method using k steps.'''
@@ -48,7 +48,7 @@ def romberg(f, a, b, tol=1.0e-6):
         oldR = R[1]
 
 def f(x):
-	return math.sin(x)
+	return x**2
 
 #Debug code ---------------------------------------
 #start = time.clock()
