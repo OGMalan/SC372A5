@@ -50,14 +50,15 @@ def romberg(f, a, b, tol=1.0e-6):
 def f(x):
 	return math.sin(x)
 
-start = time.clock()
-my_rom = romberg(f,0,1)
-print 'My romberg integral is: ' + str(my_rom[0])
-print 'Took ' + str(time.clock() - start) + ' seconds and '+str(my_rom[1])+' iterations'
-start = time.clock()
-scipy_rom = rb(f,0,1,tol=1.0e-6)
-print 'Scipy romberg integral is: ' + str(scipy_rom)
-print 'Took ' + str(time.clock() - start) + ' seconds'
-diff = abs(my_rom[0] - scipy_rom)
-tol = 1*10**-6
-print 'The difference is ' + str(diff)
+#Debug code ---------------------------------------
+#start = time.clock()
+#my_rom = romberg(f,0,1)
+#print 'My romberg integral is: ' + str(my_rom[0])
+#print 'Took ' + str(time.clock() - start) + ' seconds and '+str(my_rom[1])+' iterations'
+#start = time.clock()
+#scipy_rom = rb(f,0,1,tol=1.0e-6)
+#print 'Scipy romberg integral is: ' + str(scipy_rom)
+#print 'Took ' + str(time.clock() - start) + ' seconds'
+#diff = abs(my_rom[0] - scipy_rom)
+#tol = 1*10**-6
+#print 'The difference is ' + str(diff)
